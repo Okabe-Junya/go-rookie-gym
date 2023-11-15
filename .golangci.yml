@@ -4,7 +4,7 @@ run:
     "db_benchmark_test.go",
   ]
   skip-dirs: []
-  go: 1.17
+  go: "1.21"
 
 linters-settings:
   misspell:

@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:8.0
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_DATABASE: "database"
+      TZ: "Asia/Tokyo"
+    restart: always
+    networks:
+      - network
+    volumes:
+      - ./schema:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+  cli:
+    image: mysql:8.0
+    platform: linux/amd64
+    networks:
+      - network
+    command: mysql -hmysql -uroot -proot -Ddatabase
+
+networks:
+  network:
+    driver: bridge
