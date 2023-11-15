@@ -1,0 +1,32 @@
+version: "3"
+
+tasks:
+  up:
+    preconditions:
+      - test -f compose.yml
+    cmds:
+      - docker-compose -f compose.yml up -d mysql
+
+  down:
+    cmds:
+      - docker-compose -f compose.yml down
+  build:
+    cmds:
+      - go build -o bin/server cmd/server/main.go
+
+  run:
+    cmds:
+      - go run cmd/server/main.go
+
+  test:
+    cmds:
+      - go test -v ./...
+
+  lint:
+    cmds:
+      - golangci-lint run
+
+  fmt:
+    cmds:
+      - go fmt ./...
+
